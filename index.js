@@ -1,10 +1,13 @@
 require('chromedriver');
 const selenium = require ('selenium-webdriver');
 const By = selenium.By;
+const HomePage = require('./pages/home')
 const URL = "http://port-80-ihmb0bgzfl.treehouse-app.com/";
 const driver = new selenium.Builder().forBrowser("chrome").build();
 
-driver.get(URL);
+const homePage = new HomePage(driver); // instance of the home page imported from home.js
+homePage.open();
+
 
 const invitees = [
    'Gonzalo Torres del Fierro',
@@ -33,29 +36,10 @@ const invitees = [
    'Brent Suggs'
 ];
 
-const locators = {
-    inviteeForm : By.id("registrar"),
-    inviteeNameField : By.css("#registrar input[name='name']"),
-    toggleNonRespondersVisibility : By.css(".main > div  input"),
-    removeButtonForInvitee : invitee => By.xpath(`//span[text() = "${invitee}"]//../button[last()]`)
-};
 
-function addInvitee(name){
-  driver.findElement(locators.inviteeNameField).sendKeys(name);
-  driver.findElement(locators.inviteeForm).submit();
-}
+invitees.forEach(homePage.addInvitee, homePage);
+homePage.removeInvitee("Shadd Anderson");
 
-function removeInvitee(invitee){
-  driver.findElement(locators.removeButtonForInvitee(invitee)).click();
-}
+homePage.toggleNonRespondersVisibility();
 
-function toggleNonRespondersVisibility(){
-  driver.findElement(locators.toggleNonRespondersVisibility).click();
-}
-
-//invitees.forEach(invitee => addInvitee(invitee));
-invitees.forEach(addInvitee);
-removeInvitee("Shadd Anderson");
-
-//toggleNonRespondersVisibility();
 
