@@ -35,8 +35,10 @@ class Invitee {
   constructor(element){
     this.element = element;
     this.locators = {
+      editButton: By.css('button:first-of-type'),
       removeButton : By.css("button:last-child"),
-      confirmedCheckbox : By.css("input[type='checkbox']")
+      confirmedCheckbox : By.css("input[type='checkbox']"),
+      editTextArea : By.css("input[type='text']")
     };
   }
   remove(){
@@ -44,6 +46,14 @@ class Invitee {
   }
   toggleConfirmation(){
     this.element.findElement(this.locators.confirmedCheckbox).click();
+  }
+  changeName(name){
+    const button = this.element.findElement(this.locators.editButton);
+      button.click();
+      const textField = this.element.findElement(this.locators.editTextArea);
+      textField.clear();
+      textField.sendKeys(name);
+      button.click();
   }
 }
 
