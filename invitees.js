@@ -33,6 +33,12 @@ suite(function(env) {
             let elements = await driver.findElements(page.locators.registrationForm);
             assert(elements.length > 0);
         });
+        
+        
+        it('has registration form', async function() {
+            let elements = await driver.findElements(page.locators.registrationForm);
+            assert(elements.length > 0);
+        });
 
         // Call after() and pass it another callback function that will be called after each test.
         after(async function() {
