@@ -8,7 +8,8 @@ class RsvpPage {
     this.driver = driver;
     this.locators = {
       invitedList : By.id('invitedList'),
-      registrationForm : By.id('registrar')
+      registrationForm : By.id('registrar'),
+      invitees : By.css('#invitedList li')
     }
   }
   //methods
